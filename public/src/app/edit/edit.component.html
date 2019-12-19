@@ -1,0 +1,16 @@
+<p>edit works!</p>
+<form (submit)="updateRest(eRest._id)">
+    <div>
+      <label>old Restaurant Name{{ eRest.restName }}</label>
+      <input type="text" name="eRest.restName" [(ngModel)]="eRest.restName"/>
+      <span *ngIf="error2s.restName">{{ error2s.restName.message }}</span>
+    </div>
+    <div>
+      <label>Old Restaurant Signiture Food{{ eRest.restCuisine }}</label>
+      <input type="text" name="eRest.restCuisine" [(ngModel)]="eRest.restCuisine"/>
+      <span *ngIf="error2s.restCuisine">{{ error2s.restCuisine.message }}</span>
+    </div>
+    <input type="submit" value="Edit Restaurant" />
+    
+    </form>
+    <button [routerLink]="['/']">cancel edit</button>

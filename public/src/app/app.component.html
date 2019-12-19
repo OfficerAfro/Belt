@@ -1,0 +1,65 @@
+<h1>Not your parents Restaurant</h1>
+
+{{ newRest | json }}
+
+<form (submit)="Addrest()">
+<div>
+  <label>Restaurant Name</label>
+  <input type="text" name="newRest.restName" [(ngModel)]="newRest.restName"/>
+  <span *ngIf="errors.restName">{{ errors.restName.message }}</span>
+</div>
+<div>
+  <label>Restaurant Signiture Food</label>
+  <input type="text" name="newRest.restCuisine" [(ngModel)]="newRest.restCuisine"/>
+  <span *ngIf="errors.restCuisine">{{ errors.restCuisine.message }}</span>
+</div>
+<input type="submit" value="Add Restaurant" />
+
+</form>
+
+<div *ngFor="let rest of rests; index as i">
+
+    <h1>{{ rest.restName }}</h1>
+    <h2>{{ rest.restCuisine }}</h2>
+    <h3>previous reviews</h3>
+    <p *ngFor="let review of rest.review">
+      <strong> {{ review.name }} says</strong>
+      {{review.comment}}
+      <em>({{ review.rating }} star(s))</em>
+
+    </p>
+    <button (click)="treview(i)">Leave a Review?</button>
+
+    <form *ngIf="rest.isHere" (submit)="leaveRe(rest._id)">
+      <div>
+        <label>Your Name:</label>
+        <input type="text" name="review.name" [(ngModel)]="review.name" />
+        <span *ngIf="errors.name">{{ errors.name.message }}</span>
+      </div>
+      <div>
+        <label>Your Rating:</label>
+        <select name="review.rating" [(ngModel)]="review.rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div>
+        <label>Your Comment:</label>
+        <input type="text" name="review.comment" [(ngModel)]="review.comment" />
+        <span *ngIf="errors.comment">{{ errors.comment.message }}</span>
+      </div>
+      <input type="submit" value="Submit!">
+
+    </form>
+    <label>Service really bad? We have some guy that can help...(delete)</label>
+<button (click)="explode(rest._id)">The Guy</button>
+    <label>Has Something Changed? Edit it here</label>
+  <button [routerLink]="['/edit', rest._id]">Keep it up to date!</button>
+</div>
+
+<div>
+  <router-outlet></router-outlet>
+</div>
